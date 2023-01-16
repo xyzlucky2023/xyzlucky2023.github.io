@@ -1,0 +1,39 @@
+@import './base.css';
+
+#app {
+  max-width: 1104px;
+  margin: 0 auto;
+  font-weight: normal;
+  align-items: center;
+  padding: 40px;
+}
+
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  /* transition: 0.4s; */
+}
+
+.red {
+  text-decoration: none;
+  color: #e25822;
+  /* transition: 0.4s; */
+}
+
+.yellow {
+  text-decoration: none;
+  color: #ffbe3d;
+  transition: 0.4s;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
