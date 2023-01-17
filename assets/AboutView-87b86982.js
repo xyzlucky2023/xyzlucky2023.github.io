@@ -1,1 +1,0 @@
-import{d as o,c as t,o as s,p as _,a as c,b as a,_ as d}from"./index-5116664b.js";const n=e=>(_("data-v-019d0cb4"),e=e(),c(),e),p={class:"info"},i=n(()=>a("h1",null,"黄与红",-1)),r=[i],u=o({__name:"AboutView",setup(e){return(l,b)=>(s(),t("div",p,r))}});const f=d(u,[["__scopeId","data-v-019d0cb4"]]);export{f as default};
