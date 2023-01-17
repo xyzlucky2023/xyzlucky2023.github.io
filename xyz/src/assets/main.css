@@ -32,6 +32,11 @@ a {
   transition: 0.4s;
 }
 
+.button {
+  color: --color-button;
+  transition: 0.4s;
+}
+
 @media (hover: hover) {
   a:hover {
     background-color: #e2582230;

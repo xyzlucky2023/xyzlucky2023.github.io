@@ -1,23 +1,53 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import TheWelcome from './components/TheWelcome.vue'
+<script lang="ts">
+import { RouterLink, RouterView } from 'vue-router';
+
+export default {
+  data() {
+	  return {
+    	imageClick: () => {
+        window.open("https://apps.apple.com/app/id6444668239")
+      }
+  	}
+	}
+}
+
 </script>
 
 <template>
   <div class="content">
     <div class="header">
         <img alt="Lucky logo" class="logo" src="@/assets/logo.svg" width="180" height="180" />
-        <h1>幸运者 - Lucky</h1>
+        <h1>幸运者</h1>
+        <div class="appstore" @click=imageClick > 
+          <picture style="align-self:center; margin-left: 16px; display: flex" width="30" height="30">
+            <source media="(prefers-color-scheme: dark)" srcset="@/assets/apple_black.svg" />
+            <img src="@/assets/apple_white.svg" />
+          </picture>
+          <h3 style="text-align:center; margin-right: 16px;" @click=imageClick>App Store</h3>
+        </div>
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div>
     <RouterView/>
+    <h6 style="text-align:center; margin-top: 80px; display: block;">©红与黄 - Lucky</h6>
   </div>
 </template>
 
 <style scoped>
+
+.appstore {
+  border-radius: 13px;
+  background-color: var(--color-button);
+  color: var(--color-background);
+  display: flex;
+  width: 140px;
+  height: 40px;
+  margin: auto;
+  margin-top: 20px;
+  align-items: center;
+}
 
 .content {
   display: block;
@@ -25,19 +55,22 @@ import TheWelcome from './components/TheWelcome.vue'
 }
 
 .header {
-  width: 100%;
+  display: block;
   margin-bottom: 50px;
+  align-items: center;
+  margin: auto;
 }
 
 h1 {
   font-weight: 500;
   font-size: 2.6rem;
   text-align: center;
+  margin: auto;
 }
 
 .logo {
   display: flex;
-  width: 100%;
+  margin: auto;
 }
 
 nav {
@@ -65,15 +98,8 @@ nav a:first-of-type {
 }
 
 @media (min-width: 1024px) {
-
-.container {
-  display: flex;
-  background-color: red;
-}
-
   nav {
     text-align: center;
-    margin-left: -1rem;
     font-size: 1rem;
 
     padding: 1rem 0;
