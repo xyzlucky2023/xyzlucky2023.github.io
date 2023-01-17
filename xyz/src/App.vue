@@ -23,7 +23,7 @@ export default {
             <source media="(prefers-color-scheme: dark)" srcset="@/assets/apple_black.svg" />
             <img src="@/assets/apple_white.svg" />
           </picture>
-          <h3 style="text-align:center; margin-right: 16px;" @click=imageClick>App Store</h3>
+          <h3 style="text-align:center; margin-right: 16px;">App Store</h3>
         </div>
       <nav>
         <RouterLink to="/">Home</RouterLink>
