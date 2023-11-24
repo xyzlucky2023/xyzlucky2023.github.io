@@ -1,11 +1,11 @@
+import './assets/main.css'
+
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-
-import './assets/main.css'
+import i18n from './language'
 
 const app = createApp(App)
 
-app.use(router)
-
-app.mount('#app')
+app.use(router).use(i18n).mount('#app')
+app.config.globalProperties.$t = i18n.global.t

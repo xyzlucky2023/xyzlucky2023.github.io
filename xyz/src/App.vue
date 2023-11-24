@@ -10,14 +10,13 @@ export default {
   	}
 	}
 }
-
 </script>
 
 <template>
   <div class="content">
     <div class="header">
         <img alt="Lucky logo" class="logo" src="@/assets/logo.svg" width="180" height="180" />
-        <h1>幸运者</h1>
+        <h1>{{ $t("message.lucky") }}</h1>
         <div class="appstore" @click=imageClick > 
           <picture style="align-self:center; margin-left: 16px; display: flex" width="30" height="30">
             <source media="(prefers-color-scheme: dark)" srcset="@/assets/apple_black.svg" />
@@ -31,7 +30,7 @@ export default {
       </nav>
     </div>
     <RouterView/>
-    <h6 style="text-align:center; margin-top: 80px; display: block;">©红与黄 - Lucky</h6>
+    <h6 style="text-align:center; margin-top: 80px; display: block;">©Lucky</h6>
   </div>
 </template>
 
