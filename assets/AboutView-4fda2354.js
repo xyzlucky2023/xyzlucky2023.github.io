@@ -1,0 +1,1 @@
+import{d as o,c as t,o as a,p as s,a as _,b as c,_ as d}from"./index-1800e995.js";const n=e=>(s("data-v-aa0d8834"),e=e(),_(),e),p={class:"content"},i=n(()=>c("h4",null,"Email: yan.market@icloud.com",-1)),r=[i],u=o({__name:"AboutView",setup(e){return(l,m)=>(a(),t("div",p,r))}});const f=d(u,[["__scopeId","data-v-aa0d8834"]]);export{f as default};
