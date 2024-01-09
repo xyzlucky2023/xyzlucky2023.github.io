@@ -6,7 +6,8 @@ export default {
 	  return {
     	imageClick: () => {
         window.open("https://apps.apple.com/app/id6444668239")
-      }
+      },
+      lang: 'en'
   	}
 	}
 }
@@ -25,8 +26,8 @@ export default {
           <h3 style="text-align:center; margin-right: 16px;">App Store</h3>
         </div>
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink :to="{ path: '/' }" :append=true>Home</RouterLink>
+        <RouterLink :to="{ path: '/about' }" :append=true>About</RouterLink>
       </nav>
     </div>
     <RouterView/>

@@ -27,7 +27,7 @@ a {
 .screen {
   display: flex;
   padding: 20px;
-  max-height: 500px;
+  max-height: 450px;
 }
 
 .info {

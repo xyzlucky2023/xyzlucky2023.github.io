@@ -27,7 +27,7 @@ const language = {
 
 const i18n = createI18n({
   globalInjection: true,
-  locale: 'en',
+  locale: 'zh',
   messages: language,
   legacy: false
 })
