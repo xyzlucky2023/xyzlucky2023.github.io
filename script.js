@@ -62,7 +62,7 @@ const translations = {
     faq2_q: "How is data accuracy handled?",
     faq2_a: "Rating and version data are fetched from official App Store metadata.",
     faq3_q: "Where can I find privacy policy?",
-    faq3_a: "Please check the latest Terms and Privacy links in the App Store developer section.",
+    faq3_a: "Privacy Policy: <a href=\"https://xyzlucky2023.github.io/Privacy/index.html\">https://xyzlucky2023.github.io/Privacy/index.html</a>",
     footer: "© 2026 Random Picker for Giveaways. Official website.",
     rating_count: "{store} rating ({count} ratings)",
     version_note: "From App Store official metadata (version date {date})",
@@ -112,7 +112,7 @@ const translations = {
     faq2_q: "数据准确性如何处理？",
     faq2_a: "评分和版本信息来自 App Store 官方元数据。",
     faq3_q: "在哪里查看隐私政策？",
-    faq3_a: "请在 App Store 开发者信息区域查看最新 Terms 与 Privacy 链接。",
+    faq3_a: "<a href=\"https://xyzlucky2023.github.io/Privacy/index.html\">隐私政策</a>",
     footer: "© 2026 幸运者 官方网站。",
     rating_count: "{store}评分（{count} 条）",
     version_note: "来自 App Store 官方数据（版本日期 {date}）",
@@ -652,9 +652,7 @@ const translations = {
 let currentShot = 0;
 let timer = null;
 let activeLang = localStorage.getItem("site_lang") || "EN";
-let appStoreCode = "US";
-let appRatingCountValue = null;
-let appVersionDateValue = null;
+let appMetaByStore = {};
 
 function t(key) {
   return translations[activeLang]?.[key] ?? translations.EN[key] ?? key;
@@ -755,37 +753,80 @@ function fillLanguageSelect(codes) {
 function localizeStoreCode(code) {
   const normalized = String(code || "US").toUpperCase();
   if (activeLang === "ZH" && normalized === "US") return "美区";
+  if (activeLang === "ZH" && normalized === "CN") return "中区";
   return normalized;
 }
 
+function getPreferredStore() {
+  return activeLang === "ZH" ? "CN" : "US";
+}
+
+function getActiveStoreMeta() {
+  const preferred = getPreferredStore();
+  return appMetaByStore[preferred] || appMetaByStore.US || appMetaByStore.CN || null;
+}
+
 function renderAppStoreMeta() {
-  if (appRatingCountEl && appRatingCountValue !== null) {
+  const activeMeta = getActiveStoreMeta();
+  if (!activeMeta) return;
+
+  if (appRatingEl && typeof activeMeta.averageUserRating === "number") {
+    appRatingEl.textContent = `${activeMeta.averageUserRating.toFixed(1)} / 5`;
+  }
+  if (appVersionEl && activeMeta.version) {
+    appVersionEl.textContent = `v${activeMeta.version}`;
+  }
+  if (appRatingCountEl && typeof activeMeta.userRatingCount === "number") {
     appRatingCountEl.textContent = t("rating_count")
-      .replace("{store}", localizeStoreCode(appStoreCode))
-      .replace("{count}", String(appRatingCountValue));
+      .replace("{store}", localizeStoreCode(activeMeta.storeCode))
+      .replace("{count}", String(activeMeta.userRatingCount));
   }
-  if (appVersionNoteEl && appVersionDateValue) {
-    appVersionNoteEl.textContent = t("version_note").replace("{date}", appVersionDateValue);
+  if (appVersionNoteEl && activeMeta.versionDate) {
+    appVersionNoteEl.textContent = t("version_note").replace("{date}", activeMeta.versionDate);
   }
+}
+
+async function fetchAppMeta(storeCode) {
+  const normalized = String(storeCode || "US").toUpperCase();
+  const url = normalized === "US"
+    ? "https://itunes.apple.com/lookup?id=6444668239"
+    : `https://itunes.apple.com/lookup?id=6444668239&country=${normalized.toLowerCase()}`;
+  const res = await fetch(url);
+  if (!res.ok) return null;
+  const data = await res.json();
+  const app = data?.results?.[0];
+  if (!app) return null;
+
+  let versionDate = null;
+  if (app.currentVersionReleaseDate) {
+    const d = new Date(app.currentVersionReleaseDate);
+    versionDate = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}-${String(d.getUTCDate()).padStart(2, "0")}`;
+  }
+
+  return {
+    storeCode: normalized,
+    averageUserRating: app.averageUserRating,
+    userRatingCount: app.userRatingCount,
+    version: app.version || null,
+    versionDate,
+    languageCodesISO2A: app.languageCodesISO2A || []
+  };
 }
 
 async function hydrateFromApple() {
   try {
-    const res = await fetch("https://itunes.apple.com/lookup?id=6444668239");
-    if (!res.ok) return;
-    const data = await res.json();
-    const app = data?.results?.[0];
-    if (!app) return;
+    const [usMeta, cnMeta] = await Promise.all([
+      fetchAppMeta("US"),
+      fetchAppMeta("CN")
+    ]);
 
-    fillLanguageSelect(app.languageCodesISO2A || []);
-    appStoreCode = app.country || "US";
-
-    if (appRatingEl && typeof app.averageUserRating === "number") appRatingEl.textContent = `${app.averageUserRating.toFixed(1)} / 5`;
-    if (typeof app.userRatingCount === "number") appRatingCountValue = app.userRatingCount;
-    if (appVersionEl && app.version) appVersionEl.textContent = `v${app.version}`;
-    if (appVersionNoteEl && app.currentVersionReleaseDate) {
-      const d = new Date(app.currentVersionReleaseDate);
-      appVersionDateValue = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}-${String(d.getUTCDate()).padStart(2, "0")}`;
+    if (usMeta) {
+      appMetaByStore.US = usMeta;
+      fillLanguageSelect(usMeta.languageCodesISO2A);
+    }
+    if (cnMeta) {
+      appMetaByStore.CN = cnMeta;
+      if (!usMeta) fillLanguageSelect(cnMeta.languageCodesISO2A);
     }
     renderAppStoreMeta();
   } catch (_) {
