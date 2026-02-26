@@ -1,15 +1,136 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/assets/logo-8939227e.svg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucky</title>
-    <script type="module" crossorigin src="/assets/index-1800e995.js"></script>
-    <link rel="stylesheet" href="/assets/index-360241f9.css">
-  </head>
-  <body>
-    <div id="app"></div>
-    
-  </body>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Random Picker for Giveaways | Official Website</title>
+  <meta name="description" content="Random Picker for Giveaways 官方网站：转盘、手指选择、抽签、随机数字、抛硬币、掷骰子。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="bg-layer"></div>
+
+  <header class="topbar">
+    <a href="#home" class="brand">
+      <span class="dot"></span>
+      <span data-i18n="brand_name">Random Picker</span>
+    </a>
+    <nav>
+      <a href="#features" data-i18n="nav_features">功能</a>
+      <a href="#scenes" data-i18n="nav_scenes">场景</a>
+      <a href="#faq" data-i18n="nav_faq">FAQ</a>
+      <a class="btn mini" href="#download" data-i18n="nav_download">下载</a>
+      <label class="sr-only" for="lang-select">Language</label>
+      <select id="lang-select" aria-label="Language"></select>
+      <button id="theme-toggle" type="button" class="theme-toggle">Dark</button>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero reveal">
+      <div class="left">
+        <div class="app-head">
+          <img id="app-icon" class="app-icon" src="./assets/images/app-icon.jpg" alt="Random Picker App Icon">
+          <div class="app-head-meta">
+            <p class="app-kicker">Apple Official Asset</p>
+            <p class="app-sub" data-i18n="app_id">App Store ID: 6444668239</p>
+          </div>
+        </div>
+        <p class="eyebrow" data-i18n="hero_eyebrow">Pick a winner in 3 seconds</p>
+        <h1 data-i18n="hero_title">Random Picker for Giveaways</h1>
+        <p class="lead" data-i18n="hero_lead">This is the app you shared: <strong>Random Picker for Giveaways</strong> (App ID: 6444668239). One app for giveaways, random choices, and group games.</p>
+        <div class="action-row">
+          <a class="btn primary" href="https://apps.apple.com/us/app/random-picker-for-giveaways/id6444668239" target="_blank" rel="noopener" data-i18n="hero_open">Open App Store</a>
+          <a class="btn ghost" href="#features" data-i18n="hero_features">View Features</a>
+        </div>
+        <ul class="meta">
+          <li><strong id="app-rating">4.7 / 5</strong><span id="app-rating-count">US rating (62 Ratings)</span></li>
+          <li><strong data-i18n="meta_category_value">Utilities</strong><span data-i18n="meta_category_label">Category</span></li>
+          <li><strong id="app-version">v1.9.2</strong><span id="app-version-note">From App Store data as of 2026-02-25</span></li>
+        </ul>
+      </div>
+      <div class="right">
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="screen">
+            <p class="chip" data-i18n="phone_chip">APP PREVIEW</p>
+            <h3 data-i18n="phone_title">Official Screens</h3>
+            <div class="phone-gallery">
+              <img id="phone-shot" src="./assets/images/screenshot-1.png" alt="App 截图预览">
+            </div>
+            <div class="phone-controls">
+              <button id="shot-prev" type="button" aria-label="上一张">‹</button>
+              <div id="shot-dots" class="phone-dots"></div>
+              <button id="shot-next" type="button" aria-label="下一张">›</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section reveal">
+      <h2 data-i18n="features_title">Core Features</h2>
+      <div class="grid">
+        <article>
+          <h3 data-i18n="feature1_title">Lucky Wheel</h3>
+          <p data-i18n="feature1_desc">Create entries and spin instantly for giveaways, grouping, and decisions.</p>
+        </article>
+        <article>
+          <h3 data-i18n="feature2_title">Finger Picker</h3>
+          <p data-i18n="feature2_desc">Multiple players touch the screen and one finger gets selected at random.</p>
+        </article>
+        <article>
+          <h3 data-i18n="feature3_title">Draw Lots</h3>
+          <p data-i18n="feature3_desc">Paperless lot drawing for classes, attendance, and task assignment.</p>
+        </article>
+        <article>
+          <h3 data-i18n="feature4_title">Random Toolkit</h3>
+          <p data-i18n="feature4_desc">Random numbers, random events, coin flip, and dice in one toolkit.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="scenes" class="section reveal">
+      <h2 data-i18n="scenes_title">Use Cases</h2>
+      <div class="timeline">
+        <div><span data-i18n="scene1_t">Giveaways</span><p data-i18n="scene1_d">Pick winners quickly and reduce manual bias.</p></div>
+        <div><span data-i18n="scene2_t">Classroom</span><p data-i18n="scene2_d">Random roll call and grouping to increase participation.</p></div>
+        <div><span data-i18n="scene3_t">Friends</span><p data-i18n="scene3_d">Truth-or-dare, who pays, and where to eat.</p></div>
+        <div><span data-i18n="scene4_t">Teams</span><p data-i18n="scene4_d">Randomize small task assignments to move faster.</p></div>
+      </div>
+    </section>
+
+    <section id="download" class="section cta reveal">
+      <h2 data-i18n="download_title">Download Now</h2>
+      <p data-i18n="download_sub">Platform: iPhone / iPad (Designed for iPad)</p>
+      <a class="btn primary" href="https://apps.apple.com/us/app/random-picker-for-giveaways/id6444668239" target="_blank" rel="noopener" data-i18n="download_cta">Download on the App Store</a>
+    </section>
+
+    <section id="faq" class="section reveal">
+      <h2 data-i18n="faq_title">FAQ</h2>
+      <details>
+        <summary data-i18n="faq1_q">Which app is this website for?</summary>
+        <p data-i18n="faq1_a">This page corresponds to <code>Random Picker for Giveaways</code> (ID: 6444668239) on App Store.</p>
+      </details>
+      <details>
+        <summary data-i18n="faq2_q">How is data accuracy handled?</summary>
+        <p data-i18n="faq2_a">Rating and version data are fetched from official App Store metadata.</p>
+      </details>
+      <details>
+        <summary data-i18n="faq3_q">Where can I find privacy policy?</summary>
+        <p data-i18n="faq3_a">Please check the latest Terms and Privacy links in the App Store developer section.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <p data-i18n="footer">© 2026 Random Picker for Giveaways. Official website.</p>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
 </html>
